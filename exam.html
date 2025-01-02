@@ -1,0 +1,898 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tourist Map of Nepal</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="Bank.js"></script>
+    <script src="Municipalities.js"></script>
+    <script src="province.js"></script>
+    <script src="District.js"></script>
+    <link rel="stylesheet" href="exam.css">
+
+    
+</head>
+<body>
+    <header>
+        <div class="container">
+            <img src="Images/welcome.png" alt="Photo 1">
+            <img src="Images/Nepal1.png" alt="Photo 1">
+            <nav>
+                <ul>
+                    <li><a href="exam.html">Home Page</a></li>
+                    <li><a href="analysis.html">Rural School Analysis</a></li>
+                    <li><a href="us.html">Contact Us</a></li>
+                    <li> <a href="about.html">About this Website</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    
+    <h1>Tourist Map with Pollution & Weather API</h1>
+
+    <div style="margin-bottom: 10px;">
+        <input type="text" id="addressInput" placeholder="आफ्नो ठेगाना प्रविष्ट गर्नुहोस्" style="width: 300px;" />
+        <button id="searchAddressBtn">Search Address</button>
+    </div>
+
+    <label>
+        <input type="radio" id="weatherToggle" name="dataToggle" value="weather" />
+        मौसमको जानकारी लिन
+    </label>
+    <label style="margin-left: 10px;">
+        <input type="radio" id="pollutionToggle" name="dataToggle" value="pollution" />
+        प्रदूषणको जानकारी लिन
+    </label>
+
+    <H2> About Tourism in Nepal. </H2>
+        <div class="content-wrapper">
+        <div class="text-section">
+          <h3>
+            Nepal, a land of breathtaking natural beauty and cultural richness, is a globally renowned tourist destination. 
+            Nestled in the lap of the Himalayas, it is home to eight of the world’s ten highest peaks, including Mount Everest, 
+            the tallest mountain on Earth. Adventure enthusiasts flock to Nepal for trekking, mountaineering, and rafting, 
+            while cultural tourists are drawn to its ancient temples, stupas, and vibrant traditions. Kathmandu Valley, a UNESCO 
+            World Heritage Site, boasts intricate architecture and historical significance. Nepal also offers diverse wildlife 
+            experiences in its national parks, such as Chitwan and Bardia, where visitors can spot rare species like the Bengal tiger 
+            and one-horned rhinoceros. Known for its warm hospitality and spiritual allure, Nepal provides a unique blend of natural 
+            wonders and cultural heritage, making it a must-visit destination.
+          </h3>
+        </div>
+      
+        <!-- Photo Gallery Section -->
+        <div class="photo-gallery-container">
+          <div class="photo-gallery">
+            <div class="photo-item">
+              <img src="Images/Bhaktapur.jpg" alt="Photo 1">
+            </div>
+            <div class="photo-item">
+                <img src="Images/final.jpg" alt="Photo 1">
+              </div>
+              <div class="photo-item">
+                <img src="Images/image.jpg" alt="Photo 1">
+              </div>
+              <div class="photo-item">
+                <img src="Images/ktm.jpg" alt="Photo 1">
+              </div>
+              <div class="photo-item">
+                <img src="Images/Lumbini.jpg" alt="Photo 1">
+              </div>
+            <div class="photo-item">
+              <img src="Images/mountain.jpg" alt="Photo 2">
+            </div>
+            <div class="photo-item">
+              <img src="Images/nepal.jpg" alt="Photo 3">
+            </div>
+            <div class="photo-item">
+              <img src="Images/Pokhara.jpg" alt="Photo 4">
+            </div>
+            <div class="photo-item">
+              <img src="Images/best.jpg" alt="Photo 5">
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <script>
+        function redirectToLink(url) {
+            window.location.href = url;
+        }
+    </script>
+    
+    <!-- Example usage: -->
+    <button onclick="redirectToLink('https://storymaps.arcgis.com/stories/7ceed7e6c5224f9e882b3751bd15460d')">Checkout our Storymap</button>
+
+                
+
+                 <H1> Map of Health Care & Services</H1>
+
+    <div id="map" style="height: 400px; width: 80%; margin-left: 10px;"></div>
+    <div class="content-wrapper">
+        <div class="text-section">
+            <H2> Health Care & Services in Nepal</H2>
+          
+            <h3> Healthcare and services in Nepal are a critical aspect of the nation's development, striving to meet the needs of its diverse population and visitors. The healthcare system comprises government-run hospitals, private clinics, and community health centers, with efforts focused on improving access to quality care in both urban and rural areas. Major cities like Kathmandu, Pokhara, and Biratnagar have well-equipped hospitals and specialized services, many of which cater to international standards. For tourists, Nepal offers a range of reliable healthcare options, including private hospitals and travel clinics, particularly in urban areas and popular trekking hubs like Kathmandu and Pokhara. Emergency medical facilities and evacuation services are available for adventure travelers in remote areas. However, in rural regions, healthcare quality and accessibility can be limited, so travel insurance and preventive measures are highly recommended. Despite challenges such as resource limitations and geographical barriers, Nepal continues to improve its healthcare system, offering a reassuring level of care for residents and visitors alike.</h3>
+          
+        </div>
+      
+        <!-- Photo Gallery Section -->
+        <div class="photo-gallery-container">
+          <div class="photo-gallery">
+            <div class="photo-item">
+              <img src="Images/Sanduk.png" alt="Photo 1">
+            </div>
+            <div class="photo-item">
+                <img src="Images/buddhas.png" alt="Photo 1">
+              </div>
+              <div class="photo-item">
+                <img src="Images/childrens.png" alt="Photo 1">
+              </div>
+              <div class="photo-item">
+                <img src="Images/mahabir.png" alt="Photo 1">
+              </div>
+              <div class="photo-item">
+                <img src="Images/kumari.png" alt="Photo 1">
+              </div>
+            <div class="photo-item">
+              <img src="Images/cultures.png" alt="Photo 2">
+            </div>
+            <div class="photo-item">
+              <img src="Images/Culture.png" alt="Photo 3">
+            </div>
+            <div class="photo-item">
+              <img src="Images/tyre.png" alt="Photo 4">
+            </div>
+            <div class="photo-item">
+              <img src="Images/footiball.png" alt="Photo 5">
+            </div>
+          </div>
+        </div>
+      </div>
+      
+
+
+       
+    <script>
+        // Initialize the map
+        const map = L.map('map').setView([28.0, 84.0], 7);
+
+        // Add base map layer
+        const baseMap = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '&copy; OpenStreetMap contributors'
+        }).addTo(map);
+
+        const TopoMap = L.tileLayer('https://tile.opentopomap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '&copy; OpenStreetMap contributors'
+        }).addTo(map);
+
+        // Add Layers (Municipalities, Provinces, Districts, Banks)
+        const municipalitiesLayer = L.geoJSON(Municipalities, {
+            style: { color: "orange", weight: 2, fillOpacity: 0.3 },
+            onEachFeature: (feature, layer) => {
+                const { PR_NAME, DISTRICT, LOCAL, TYPE } = feature.properties;
+                layer.bindPopup(`Province: ${PR_NAME}<br>District: ${DISTRICT}<br>Local Municipality: ${LOCAL}<br>Type: ${TYPE}`);
+            }
+        });
+       
+        
+
+        const provinceLayer = L.geoJSON(Province, {
+            style: { color: "blue", weight: 2, fillOpacity: 0.2 },
+            onEachFeature: (feature, layer) => {
+                const { PROVINCE_ID, PROVINCE_NAME } = feature.properties;
+                layer.bindPopup(`Province ID: ${PROVINCE_ID}<br>Province Name: ${PROVINCE_NAME}`);
+            }
+        });
+
+        const districtLayer = L.geoJSON(District, {
+            style: { color: "grey", weight: 2, fillOpacity: 0.1 },
+            onEachFeature: (feature, layer) => {
+                const { DISTRICT } = feature.properties;
+                layer.bindPopup(`District Name: ${DISTRICT}`);
+            }
+        });
+
+        const wmsLayerRoadNetwork1 = L.tileLayer.wms("http://localhost:8080/geoserver/roadnetwork/wms", {
+    layers: "roadnetwork:hotosm_npl_roads_lines_shp",
+    format: "image/png",
+    transparent: true,
+    version: "1.1.0",
+    attribution: "&copy; Road Network WMS"
+
+        });
+
+        const wmsLayerBanks = L.tileLayer.wms("http://localhost:8080/geoserver/Tourist_Map/wms", {
+            layers: "Tourist_Map:Banks",
+            format: "image/png",
+            transparent: true,
+            version: "1.1.0",
+            attribution: "&copy; Tourist Map WMS"
+        });
+
+        const wmsLayerATM = L.tileLayer.wms("http://localhost:8080/geoserver/Tourist_Map/wms", {
+            layers: "Tourist_Map:amenity_atm",
+            format: "image/png",
+            transparent: true,
+            version: "1.1.0",
+            attribution: "&copy; Tourist Map WMS"
+        });
+
+        const wmsLayerHospital = L.tileLayer.wms("http://localhost:8080/geoserver/Tourist_Map/wms", {
+            layers: "Tourist_Map:Hospital",
+            format: "image/png",
+            transparent: true,
+            version: "1.1.0",
+            attribution: "&copy; Tourist Map WMS"
+        });
+
+        const wmsLayerHospital1 = L.tileLayer.wms("http://localhost:8080/geoserver/Tourist_Map/wms", {
+    layers: "Tourist_Map:Hospital1",
+    format: "image/png",
+    transparent: true,
+    version: "1.1.0",
+    attribution: "&copy; Tourist Map WMS"
+        });
+
+        const wmsLayerDentist = L.tileLayer.wms("http://localhost:8080/geoserver/Tourist_Map/wms", {
+    layers: "Tourist_Map:Dentist1",
+    format: "image/png",
+    transparent: true,
+    version: "1.1.0",
+    attribution: "&copy; Tourist Map WMS"
+});
+
+        const wmsLayerClinic = L.tileLayer.wms("http://localhost:8080/geoserver/Tourist_Map/wms", {
+    layers: "Tourist_Map:Clinic1",
+    format: "image/png",
+    transparent: true,
+    version: "1.1.0",
+    attribution: "&copy; Tourist Map WMS",
+    
+});
+
+const wmsLayerClinicFull = L.tileLayer.wms("http://localhost:8080/geoserver/Tourist_Map/wms", {
+    layers: "Tourist_Map:Clinic",
+    format: "image/png",
+    transparent: true,
+    version: "1.1.0",
+    attribution: "&copy; Tourist Map WMS"
+});
+
+const wmsLayerChildcare = L.tileLayer.wms("http://localhost:8080/geoserver/Tourist_Map/wms", {
+    layers: "Tourist_Map:Childcare1",
+    format: "image/png",
+    transparent: true,
+    version: "1.1.0",
+    attribution: "&copy; Tourist Map WMS"
+});
+
+const wmsLayerAmenityChildcare = L.tileLayer.wms("http://localhost:8080/geoserver/Tourist_Map/wms", {
+    layers: "Tourist_Map:amenity_childcare",
+    format: "image/png",
+    transparent: true,
+    version: "1.1.0",
+    attribution: "&copy; Tourist Map WMS"
+});
+    
+
+        // Layer Control
+        L.control.layers(
+            { "Base Map": baseMap,
+                "Topo Map":TopoMap
+             },
+
+            {
+                "Municipalities": municipalitiesLayer,
+                "Provinces": provinceLayer,
+                "Districts": districtLayer,
+                "Road":  wmsLayerRoadNetwork1,
+                "Banks (WMS)": wmsLayerBanks,
+                "ATM (WMS)": wmsLayerATM,
+                "Hospital(WMS)":wmsLayerHospital,
+                "Hospitals1(WMS)":wmsLayerHospital1,
+                "Dental Clinic": wmsLayerDentist,
+                "Clinic" : wmsLayerClinic,
+                "Additional Clinic" : wmsLayerClinicFull,
+                "Childcare":wmsLayerChildcare,
+                "BabySitting":wmsLayerAmenityChildcare,
+
+            }
+        ).addTo(map);
+
+        // Geocode API Integration
+        async function fetchGeocode(address) {
+            const apiUrl = `https://geocode.maps.co/search?q=${encodeURIComponent(address)}`;
+            try {
+                const response = await axios.get(apiUrl);
+                if (response.data && response.data.length > 0) {
+                    return response.data[0];
+                } else {
+                    alert('No results found for the entered address.');
+                }
+            } catch (error) {
+                console.error('Error fetching geocode data:', error);
+                alert('Failed to fetch geocode data. Please try again later.');
+            }
+            return null;
+        }
+
+        document.getElementById('searchAddressBtn').addEventListener('click', async () => {
+            const address = document.getElementById('addressInput').value.trim();
+            if (!address) {
+                alert('Please enter an address to search.');
+                return;
+            }
+            const geocode = await fetchGeocode(address);
+            if (geocode) {
+                const { lat, lon, display_name } = geocode;
+                L.marker([lat, lon])
+                    .addTo(map)
+                    .bindPopup(`Address: ${display_name}<br>Latitude: ${lat}<br>Longitude: ${lon}`)
+                    .openPopup();
+                map.setView([lat, lon], 14);
+            }
+        });
+
+        // Weather and Pollution Toggle
+        let currentMode = null;
+
+        document.getElementById('weatherToggle').addEventListener('change', () => {
+            currentMode = 'weather';
+            alert('Weather data enabled. Click the map to fetch weather data.');
+        });
+
+        document.getElementById('pollutionToggle').addEventListener('change', () => {
+            currentMode = 'pollution';
+            alert('Pollution data enabled. Click the map to fetch pollution data.');
+        });
+
+        // Fetch Weather and Pollution Data
+        async function fetchWeatherData(lat, lon) {
+            const apiKey = 'e569c26e83e607eb7de26e5f88115100';
+            const apiUrl = `https://api.openweathermap.org/data/2.5/weather`;
+            try {
+                const response = await axios.get(apiUrl, { params: { lat, lon, appid: apiKey, units: 'metric' } });
+                const { description } = response.data.weather[0];
+                const { temp, humidity } = response.data.main;
+                return { description, temp, humidity };
+            } catch (error) {
+                console.error('Error fetching weather data:', error);
+            }
+            return null;
+        }
+
+        async function fetchPollutionData(lat, lon) {
+            const apiKey = '15494b358c4b5abfe621775958c51f9b';
+            const apiUrl = `http://api.openweathermap.org/data/2.5/air_pollution`;
+            try {
+                const response = await axios.get(apiUrl, { params: { lat, lon, appid: apiKey } });
+                const { aqi } = response.data.list[0].main;
+                const { co, no2, o3 } = response.data.list[0].components;
+                return { aqi, co, no2, o3 };
+            } catch (error) {
+                console.error('Error fetching pollution data:', error);
+            }
+            return null;
+        }
+
+        // Map Click Handler
+        map.on('click', async (e) => {
+            const { lat, lng } = e.latlng;
+            if (currentMode === 'weather') {
+                const weather = await fetchWeatherData(lat, lng);
+                if (weather) {
+                    L.popup()
+                        .setLatLng([lat, lng])
+                        .setContent(`Weather: ${weather.description}<br>Temp: ${weather.temp}°C<br>Humidity: ${weather.humidity}%`)
+                        .openOn(map,map2,map3);
+                }
+            } else if (currentMode === 'pollution') {
+                const pollution = await fetchPollutionData(lat, lng);
+                if (pollution) {
+                    L.popup()
+                        .setLatLng([lat, lng])
+                        .setContent(`AQI: ${pollution.aqi}<br>CO: ${pollution.co}µg/m³<br>NO₂: ${pollution.no2}µg/m³<br>O₃: ${pollution.o3}µg/m³`)
+                        .openOn(map,map2,map3);
+                }
+            }
+        });    
+    </script>
+
+<script>
+    function redirectToLink(url) {
+        window.location.href = url;
+    }
+</script>
+
+<!-- Example usage: -->
+<button onclick="redirectToLink('https://raaz0000002.github.io/National-Parks-of-Nepal/#7/30.354/85.023')">Checkout the National Parks of Nepal Here!!!</button>
+    <h1> Transportation Services Map</h1>
+
+<div id="map2" style="height: 400px; width: 80%; margin-top: 20px;"></div>
+
+<div class="content-wrapper">
+    <div class="text-section">
+        <H2> Transportation Services in Nepal</H2>
+      
+        <h3> Transportation services in Nepal are diverse, catering to the country's unique geographical landscape and varying urban and rural needs. In urban centers like Kathmandu and Pokhara, public transportation includes buses, microbuses, and tempos (three-wheeled electric vehicles), which are affordable but often crowded. Taxis and ride-sharing services like Tootle and Pathao provide more convenient options for local travel. In rural areas, transportation is often limited to buses, jeeps, and motorcycles navigating narrow, rugged roads. Nepal’s mountainous terrain makes air travel crucial for reaching remote regions, with domestic airlines operating flights to popular destinations such as Lukla and Jomsom. Additionally, long-distance travel relies on buses that connect major cities and towns, while traditional means like porter services and mules are still used in isolated mountain regions. Despite challenges like traffic congestion and limited infrastructure, Nepal's transportation system continues to evolve, supporting the movement of people and goods across the country.</h3>
+      
+    </div>
+  
+    <!-- Photo Gallery Section -->
+    
+      </div>
+    </div>
+  </div>
+  
+
+<script>
+    const map2 = L.map('map2').setView([27.7, 85.3], 8);
+    const baseMap2 = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution: '&copy; OpenStreetMap contributors'
+    }).addTo(map2);
+
+    const TopoMap2 = L.tileLayer('https://tile.opentopomap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '&copy; OpenStreetMap contributors'
+        }).addTo(map2);
+    const destinations = [
+    
+    { 
+        name: 'Kathmandu', 
+        coords: [27.7, 85.3], 
+        description: 'Kathmandu - A popular tourist destination, known for its ancient temples and vibrant culture.',
+        photo: 'https://static1.squarespace.com/static/55d729cfe4b00ab3960e7989/t/6137ca87549d8c3a31c324b2/1631046289611/Craig+Kassover1.jpg?format=1500w' // Fixed URL
+    }
+        ,
+    { 
+        name: 'Pokhara', 
+        coords: [28.2096, 83.9856], 
+        description: 'Pokhara - Known for its stunning lakes and views of the Annapurna mountain range.',
+        photo: '' // Replace with the actual photo URL
+    },
+    { 
+        name: 'Mount Everest', 
+        coords: [27.9881, 86.9250], 
+        description: 'Mount Everest - The highest peak on Earth, attracting trekkers and climbers from all over the world.',
+        photo: 'https://example.com/everest.jpg' // Replace with the actual photo URL
+    },
+    { 
+        name: 'Lumbini', 
+        coords: [27.6667, 83.0], 
+        description: 'Lumbini - The birthplace of Lord Buddha, a UNESCO World Heritage site.',
+        photo: 'https://example.com/lumbini.jpg' // Replace with the actual photo URL
+    },
+    { 
+        name: 'Chitwan National Park', 
+        coords: [27.5333, 84.5], 
+        description: 'Chitwan National Park - Known for its wildlife and safaris, home to rhinos, tigers, and elephants.',
+        photo: 'https://example.com/chitwan.jpg' // Replace with the actual photo URL
+    },
+    { 
+        name: 'Bandipur', 
+        coords: [27.5833, 84.35], 
+        description: 'Bandipur - A picturesque hilltop town known for its preserved cultural heritage and views of the Himalayas.',
+        photo: 'https://example.com/bandipur.jpg' // Replace with the actual photo URL
+    },
+    { 
+        name: 'Annapurna Circuit', 
+        coords: [28.5461, 83.9390], 
+        description: 'Annapurna Circuit - A famous trekking route offering breathtaking views of the Annapurna mountain range.',
+        photo: 'https://example.com/annapurna.jpg' // Replace with the actual photo URL
+    },
+    { 
+        name: 'Rara Lake', 
+        coords: [29.2656, 82.0890], 
+        description: 'Rara Lake - A stunning freshwater lake in the remote northwestern part of Nepal.',
+        photo: 'https://example.com/rara.jpg' // Replace with the actual photo URL
+    },
+    { 
+        name: 'Bhaktapur', 
+        coords: [27.6710, 85.4295], 
+        description: 'Bhaktapur - A medieval city known for its preserved architecture, temples, and cultural heritage.',
+        photo: 'https://example.com/bhaktapur.jpg' // Replace with the actual photo URL
+    },
+    { 
+        name: 'Nagarkot', 
+        coords: [27.6717, 85.5133], 
+        description: 'Nagarkot - Famous for its sunrise and panoramic views of the Himalayan peaks.',
+        photo: 'https://example.com/nagarkot.jpg' // Replace with the actual photo URL
+    }
+];
+
+// Add markers for each destination
+destinations.forEach(destination => {
+    L.marker(destination.coords).addTo(map2)
+        .bindPopup(`
+            <b>${destination.name}</b><br>
+            ${destination.description}<br>
+            <img src="${destination.photo}" alt="${destination.name}" style="width:100%; max-height: 200px; object-fit: cover;" />
+        `)
+        .openPopup();
+});
+
+
+// Add markers for each destination
+destinations.forEach(destination => {
+    L.marker(destination.coords).addTo(map2)
+        .bindPopup(`<b>${destination.name}</b><br>${destination.description}`)
+        .openPopup();
+});
+const municipalitiesLayer1 = L.geoJSON(Municipalities, {
+            style: { color: "orange", weight: 2, fillOpacity: 0.3 },
+            onEachFeature: (feature, layer) => {
+                const { PR_NAME, DISTRICT, LOCAL, TYPE } = feature.properties;
+                layer.bindPopup(`Province: ${PR_NAME}<br>District: ${DISTRICT}<br>Local Municipality: ${LOCAL}<br>Type: ${TYPE}`);
+            }
+        }).addTo(map2);
+
+        const provinceLayer1 = L.geoJSON(Province, {
+            style: { color: "blue", weight: 2, fillOpacity: 0.2 },
+            onEachFeature: (feature, layer) => {
+                const { PROVINCE_ID, PROVINCE_NAME } = feature.properties;
+                layer.bindPopup(`Province ID: ${PROVINCE_ID}<br>Province Name: ${PROVINCE_NAME}`);
+            }
+        });
+
+        const districtLayer1 = L.geoJSON(District, {
+            style: { color: "grey", weight: 2, fillOpacity: 0.1 },
+            onEachFeature: (feature, layer) => {
+                const { DISTRICT } = feature.properties;
+                layer.bindPopup(`District Name: ${DISTRICT}`);
+            }
+        });
+
+        const wmsLayerBicycleParking = L.tileLayer.wms("http://localhost:8080/geoserver/Tourist_Map/wms", {
+    layers: "Tourist_Map:Bicycle_Parking",
+    format: "image/png",
+    transparent: true,
+    version: "1.1.0",
+    attribution: "&copy; Tourist Map WMS"
+
+    
+});
+
+const wmsLayerRoadNetwork = L.tileLayer.wms("http://localhost:8080/geoserver/roadnetwork/wms", {
+    layers: "roadnetwork:hotosm_npl_roads_lines_shp",
+    format: "image/png",
+    transparent: true,
+    version: "1.1.0",
+    attribution: "&copy; Road Network WMS"
+});
+const wmsLayerBusStation = L.tileLayer.wms("http://localhost:8080/geoserver/Tourist_Map/wms", {
+    layers: "Tourist_Map:Bus Station",
+    format: "image/png",
+    transparent: true,
+    version: "1.1.0",
+    attribution: "&copy; Tourist Map WMS"
+});
+
+const wmsLayerTaxi = L.tileLayer.wms("http://localhost:8080/geoserver/Tourist_Map/wms", {
+    layers: "Tourist_Map:Taxi",
+    format: "image/png",
+    transparent: true,
+    version: "1.1.0",
+    attribution: "&copy; Tourist Map WMS"
+});
+
+const wmsLayerChargingStation = L.tileLayer.wms("http://localhost:8080/geoserver/Tourist_Map/wms", {
+    layers: "Tourist_Map:amenity_charging_station",
+    format: "image/png",
+    transparent: true,
+    version: "1.1.0",
+    attribution: "&copy; Tourist Map WMS"
+});
+
+const wmsLayerBusStation1 = L.tileLayer.wms("http://localhost:8080/geoserver/Tourist_Map/wms", {
+    layers: "Tourist_Map:amenity_bus_station",
+    format: "image/png",
+    transparent: true,
+    version: "1.1.0",
+    attribution: "&copy; Tourist Map WMS"
+});
+const wmsLayerBoatRental = L.tileLayer.wms("http://localhost:8080/geoserver/Tourist_Map/wms", {
+    layers: "Tourist_Map:amenity_boat_rental",
+    format: "image/png",
+    transparent: true,
+    version: "1.1.0",
+    attribution: "&copy; Tourist Map WMS"
+});
+
+
+
+
+        L.control.layers(
+            { "Base Map": baseMap2,
+            "Topographic Map": TopoMap2
+                
+             },
+            {
+                "Roads": wmsLayerRoadNetwork,
+                "Municipalities": municipalitiesLayer1,
+                "Provinces": provinceLayer1,
+                "Districts": districtLayer1,
+                "Bicycle Parking": wmsLayerBicycleParking,
+                "Bus Stations": wmsLayerBusStation,
+                "Bus Stations 2":wmsLayerBusStation1,
+                "Taxi Stations": wmsLayerTaxi,
+                "Charging Stations":  wmsLayerChargingStation,
+                "Boat Rental":wmsLayerBoatRental
+
+                
+                
+            }
+        ).addTo(map2);
+
+
+</script>
+
+<h1> Relaxation Map of Nepal</h1>
+<div id="map3" style="height: 400px; width: 80%; margin-top: 20px;"></div>
+<div class="content-wrapper">
+    <div class="text-section">
+        <h2> About Relaxation in Nepal</h2>
+      
+        <h3> Nepal offers a vibrant range of modern services catering to both locals and tourists, making the country a blend of traditional and contemporary experiences. **Cafes** are popular spots for both casual meetings and relaxation, especially in cities like Kathmandu and Pokhara, offering a variety of coffee and light bites. **Cinemas** and **multiplexes** have become a go-to entertainment option, screening both international blockbusters and Nepali films. For food lovers, **fast food** joints and **convenience foods** are available in abundance, offering quick meals such as burgers, pizzas, and snacks. **Ice-cream parlors** are a favorite for sweet treats, with both local and international brands serving up an array of flavors. **Marketplaces** can be found throughout the country, bustling with goods ranging from handicrafts to fresh produce. **Quick-service foods** are popular in both urban and rural areas, providing fast meals at affordable prices. For those looking to unwind, there are several **bars** and **pubs** that offer drinks, entertainment, and social gatherings. **Barbecue** restaurants and food stalls are also common, offering grilled meats and local specialties. The availability of **benches** in parks and public areas provides a comfortable space to sit and enjoy the surroundings. **Tea stalls** serve as hubs of daily life, offering traditional Nepali tea (chiya) and local snacks. For those seeking more luxurious experiences, **casinos** and **spas** provide options for entertainment and relaxation. **Dining houses** offer a wide range of Nepali and international cuisines, while **pubs** and **bars** continue to be the favorite nightlife spots. All these services, from food to entertainment, are well-distributed across Nepal, with a map marking their locations for easier access to both residents and visitors.</h3>
+      
+    </div>
+  
+    <!-- Photo Gallery Section -->
+    
+      </div>
+    </div>
+  </div>
+  
+
+
+
+<script>
+    // Initialize the map
+    const map3 = L.map('map3').setView([28.0, 84.0], 7);
+
+    // Add base map layer
+    const baseMap3 = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution: '&copy; OpenStreetMap contributors'
+    }).addTo(map3);
+
+    const TopoMap3 = L.tileLayer('https://tile.opentopomap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution: '&copy; OpenStreetMap contributors'
+    }).addTo(map3);
+
+    // Add Layers (Municipalities, Provinces, Districts, Banks)
+    const municipalitiesLayer3 = L.geoJSON(Municipalities, {
+        style: { color: "orange", weight: 2, fillOpacity: 0.3 },
+        onEachFeature: (feature, layer) => {
+            const { PR_NAME, DISTRICT, LOCAL, TYPE } = feature.properties;
+            layer.bindPopup(`Province: ${PR_NAME}<br>District: ${DISTRICT}<br>Local Municipality: ${LOCAL}<br>Type: ${TYPE}`);
+        }
+    });
+   
+    
+
+    const provinceLayer3 = L.geoJSON(Province, {
+        style: { color: "blue", weight: 2, fillOpacity: 0.2 },
+        onEachFeature: (feature, layer) => {
+            const { PROVINCE_ID, PROVINCE_NAME } = feature.properties;
+            layer.bindPopup(`Province ID: ${PROVINCE_ID}<br>Province Name: ${PROVINCE_NAME}`);
+        }
+    });
+
+    const districtLayer3 = L.geoJSON(District, {
+        style: { color: "grey", weight: 2, fillOpacity: 0.1 },
+        onEachFeature: (feature, layer) => {
+            const { DISTRICT } = feature.properties;
+            layer.bindPopup(`District Name: ${DISTRICT}`);
+        }
+    });
+
+    const wmsLayerRoadNetwork3 = L.tileLayer.wms("http://localhost:8080/geoserver/roadnetwork/wms", {
+layers: "roadnetwork:hotosm_npl_roads_lines_shp",
+format: "image/png",
+transparent: true,
+version: "1.1.0",
+attribution: "&copy; Road Network WMS"
+
+    });
+
+    const wmsLayerCafes = L.tileLayer.wms("http://localhost:8080/geoserver/Tourist_Map/wms", {
+    layers: "Tourist_Map:Cafes",
+    format: "image/png",
+    transparent: true,
+    version: "1.1.0",
+    attribution: "&copy; Tourist Map WMS"
+});
+
+const wmsLayerCinema = L.tileLayer.wms("http://localhost:8080/geoserver/Tourist_Map/wms", {
+    layers: "Tourist_Map:Cinema",
+    format: "image/png",
+    transparent: true,
+    version: "1.1.0",
+    attribution: "&copy; Tourist Map WMS"
+});
+
+const wmsLayerCinema1 = L.tileLayer.wms("http://localhost:8080/geoserver/Tourist_Map/wms", {
+    layers: "Tourist_Map:Cinema1",
+    format: "image/png",
+    transparent: true,
+    version: "1.1.0",
+    attribution: "&copy; Tourist Map WMS"
+});
+const wmsLayerFastFood = L.tileLayer.wms("http://localhost:8080/geoserver/Tourist_Map/wms", {
+    layers: "Tourist_Map:Fast Food",
+    format: "image/png",
+    transparent: true,
+    version: "1.1.0",
+    attribution: "&copy; Tourist Map WMS"
+});
+
+const wmsLayerFastFood1 = L.tileLayer.wms("http://localhost:8080/geoserver/Tourist_Map/wms", {
+    layers: "Tourist_Map:Fast Food1",
+    format: "image/png",
+    transparent: true,
+    version: "1.1.0",
+    attribution: "&copy; Tourist Map WMS"
+});
+const wmsLayerIceCreamParlur = L.tileLayer.wms("http://localhost:8080/geoserver/Tourist_Map/wms", {
+    layers: "Tourist_Map:Ice-Cream Parlur",
+    format: "image/png",
+    transparent: true,
+    version: "1.1.0",
+    attribution: "&copy; Tourist Map WMS"
+});
+const wmsLayerMarketplace = L.tileLayer.wms("http://localhost:8080/geoserver/Tourist_Map/wms", {
+    layers: "Tourist_Map:Marketplace",
+    format: "image/png",
+    transparent: true,
+    version: "1.1.0",
+    attribution: "&copy; Tourist Map WMS"
+});
+const wmsLayerResturantBig = L.tileLayer.wms("http://localhost:8080/geoserver/Tourist_Map/wms", {
+    layers: "Tourist_Map:Resturant_big",
+    format: "image/png",
+    transparent: true,
+    version: "1.1.0",
+    attribution: "&copy; Tourist Map WMS"
+});
+const wmsLayerAmenityBar = L.tileLayer.wms("http://localhost:8080/geoserver/Tourist_Map/wms", {
+    layers: "Tourist_Map:amenity_bar",
+    format: "image/png",
+    transparent: true,
+    version: "1.1.0",
+    attribution: "&copy; Tourist Map WMS"
+});
+
+const wmsLayerAmenityBBQ = L.tileLayer.wms("http://localhost:8080/geoserver/Tourist_Map/wms", {
+    layers: "Tourist_Map:amenity_bbq",
+    format: "image/png",
+    transparent: true,
+    version: "1.1.0",
+    attribution: "&copy; Tourist Map WMS"
+});
+
+const wmsLayerAmenityBench = L.tileLayer.wms("http://localhost:8080/geoserver/Tourist_Map/wms", {
+    layers: "Tourist_Map:amenity_bench",
+    format: "image/png",
+    transparent: true,
+    version: "1.1.0",
+    attribution: "&copy; Tourist Map WMS"
+});
+const wmsLayerAmenityCafe = L.tileLayer.wms("http://localhost:8080/geoserver/Tourist_Map/wms", {
+    layers: "Tourist_Map:amenity_cafe",
+    format: "image/png",
+    transparent: true,
+    version: "1.1.0",
+    attribution: "&copy; Tourist Map WMS"
+});
+
+const wmsLayerAmenityCasino = L.tileLayer.wms("http://localhost:8080/geoserver/Tourist_Map/wms", {
+    layers: "Tourist_Map:amenity_casino",
+    format: "image/png",
+    transparent: true,
+    version: "1.1.0",
+    attribution: "&copy; Tourist Map WMS"
+});
+
+const wmsLayerAmenityPub = L.tileLayer.wms("http://localhost:8080/geoserver/Tourist_Map/wms", {
+    layers: "Tourist_Map:amenity_pub",
+    format: "image/png",
+    transparent: true,
+    version: "1.1.0",
+    attribution: "&copy; Tourist Map WMS"
+});
+const wmsLayerAmenityRestaurant = L.tileLayer.wms("http://localhost:8080/geoserver/Tourist_Map/wms", {
+    layers: "Tourist_Map:amenity_restaurant",
+    format: "image/png",
+    transparent: true,
+    version: "1.1.0",
+    attribution: "&copy; Tourist Map WMS"
+});
+
+const wmsLayerAmenityShower = L.tileLayer.wms("http://localhost:8080/geoserver/Tourist_Map/wms", {
+    layers: "Tourist_Map:amenity_shower",
+    format: "image/png",
+    transparent: true,
+    version: "1.1.0",
+    attribution: "&copy; Tourist Map WMS"
+});
+
+
+
+
+
+
+
+
+
+
+    L.control.layers(
+            { "Base Map": baseMap2,
+            "Topographic Map": TopoMap2
+                
+             },
+            {
+                "Roads": wmsLayerRoadNetwork3,
+                "Municipalities": municipalitiesLayer3,
+                "Provinces": provinceLayer3,
+                "Districts": districtLayer3,
+                "Cafes": wmsLayerCafes,
+                "Cinemas": wmsLayerCinema,
+                "Multiplex" : wmsLayerCinema1,
+                "Fast Food" : wmsLayerFastFood,
+                "convenience foods": wmsLayerFastFood1,
+                "Ice- Cream Parlur": wmsLayerIceCreamParlur,
+                " Market Place": wmsLayerMarketplace,
+                "Quick Service Foods": wmsLayerResturantBig,
+                "Bars": wmsLayerAmenityBar,
+                "Barbeque" : wmsLayerAmenityBBQ,
+                "Benches": wmsLayerAmenityBench,
+                "Tea Stalls":wmsLayerAmenityCafe,
+                "Casino":  wmsLayerAmenityCasino,
+                "pub": wmsLayerAmenityPub,
+                "Dinning Houses": wmsLayerAmenityRestaurant,
+                "Spa" : wmsLayerAmenityShower
+
+
+
+
+                
+
+                
+                
+            }
+        ).addTo(map3);
+
+
+
+    </script>
+
+    <hr class="divider">
+
+<div class="end-section">
+    <div class="end-content">
+        <p>Contributors: Rajkumar Acharya, Sagar Singh, Dipendra Joshi</p>
+        <div class="end-details">
+            <p>&copy; 2025 - Team Khoya. All rights reserved.</p>
+            <p>For more details, visit <a href="https://www.linkedin.com/in/rajkumar-acharya-871309286/" target="_blank">Creator </a></p>
+            <p>Disclaimer: This project is intended for informational purposes only.</p>
+        </div>
+    </div>
+</div>
+
+
+
+<footer>
+    <p>&copy; Team Khoya. All Rights Reserved.</p>
+</footer>
+
+
+
+</body>
+</html>

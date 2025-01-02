@@ -1,0 +1,173 @@
+/* General styles */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    color: #ddd; /* Lighter text for better contrast */
+    background-color: #2c3e50; /* Dark background color */
+    background-image: url("Images/landscape-fantasy-new-planet-with-galaxy-background_31965-109977.avif");
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}
+
+/* Title section */
+h1 {
+    text-align: center;
+    margin: 20px auto;
+    font-size: 2.5rem;
+    color: #ffffff;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+    background-color: rgba(0, 123, 255, 0.8);
+    padding: 10px 20px;
+    border-radius: 10px;
+    max-width: 80%;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* Map container */
+#map {
+    width: 90%;
+    height: 300px; /* Reduced height to make the map smaller */
+    margin: 20px auto;
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    background-color: #ffffff;
+}
+
+/* Output boxes container */
+#proximity-result, 
+#nearest-school-result {
+    flex: 1;
+    background-color: #34495e; /* Darker background to match the overall dark theme */
+    margin: 10px;
+    padding: 15px;
+    border: 2px solid #2c3e50; /* Slightly darker border */
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* Output box headers */
+#proximity-result h3, 
+#nearest-school-result h3 {
+    background-color: #2980b9; /* Darker blue */
+    color: #ffffff;
+    margin: 0 -15px 15px -15px;
+    padding: 10px;
+    border-radius: 10px 10px 0 0;
+    text-align: center;
+    font-size: 1.3rem;
+}
+
+/* Output box content */
+#proximity-result div,
+#nearest-school-result div {
+    font-size: 1rem;
+    color: black; /* Lighter text color for better readability */
+    line-height: 1.5;
+}
+
+/* Buttons container */
+button {
+    display: block;
+    width: 250px;
+    margin: 20px auto;
+    padding: 10px;
+    font-size: 1rem;
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+button#proximity-button {
+    background-color: #28a745;
+}
+
+button#nearest-school-button {
+    background-color: #007bff;
+}
+
+button:hover {
+    opacity: 0.9;
+    transform: scale(1.05);
+}
+
+button:focus {
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+/* Flex container for output boxes */
+div#proximity-result, 
+div#nearest-school-result {
+    flex: 1;
+    margin-bottom: 20px;
+}
+
+#proximity-result, #nearest-school-result {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 10px;
+}
+/* General Reset for List Styling */
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+/* Navbar Styles */
+nav {
+    background-color: #2c3e50; /* Dark background for the navbar */
+    padding: 15px 20px; /* Padding for spacing */
+}
+
+nav ul {
+    display: flex;
+    justify-content: center; /* Centers the list horizontally */
+    gap: 20px; /* Space between links */
+}
+
+nav ul li {
+    display: inline-block; /* Ensures list items are inline */
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: #fff; /* White text for links */
+    font-size: 1.1rem;
+    padding: 10px 15px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+nav ul li a:hover {
+    background-color: #2980b9; /* Blue hover effect */
+    transform: scale(1.1); /* Slight zoom effect on hover */
+}
+
+nav ul li a:focus {
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Blue outline on focus */
+}
+
+/* Footer Styles */
+footer {
+    background-color: #2c3e50; /* Same dark background as the navbar */
+    color: #fff; /* White text */
+    padding: 20px;
+    text-align: center; /* Centers the footer text */
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    left: 0;
+    font-size: 0.9rem;
+}
+
+footer p {
+    margin: 0;
+}

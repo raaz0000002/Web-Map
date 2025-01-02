@@ -1,0 +1,358 @@
+/* General Page Styling */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Arial', sans-serif;
+    background-image: url('Images/kathmandu.jpg');
+    background-size: cover; /* Ensures the image covers the entire viewport */
+    background-position: center center; /* Centers the image */
+    background-attachment: fixed; /* Keeps the background image fixed while scrolling */
+    color: #f4f4f4; /* Lighter text color for better visibility */
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden; /* Prevent horizontal scrolling */
+}
+
+/* Wrapper for Page Sections */
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    overflow: hidden;
+}
+
+/* Map Section Styling */
+#map-container {
+    flex-shrink: 0; /* Prevent the map section from shrinking */
+    width: 100%;
+    height: 80vh; /* Set the map to 80% of the viewport height */
+    margin: 20px auto;
+    border: 2px solid #007acc;
+    border-radius: 10px;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+}
+
+/* Leaflet Default Controls */
+.leaflet-container {
+    background: #e8f5ff; /* Fallback background for map */
+}
+
+.leaflet-control {
+    background-color: rgba(255, 255, 255, 0.8);
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    color: #333; /* Darker text for controls */
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+/* Hover Effects for Controls */
+.leaflet-control:hover {
+    background-color: rgba(240, 240, 240, 0.9);
+    color: #007acc;
+    cursor: pointer;
+}
+
+/* Popups */
+.leaflet-popup-content {
+    font-size: 14px;
+    color: #333; /* Darker text for popups */
+}
+
+.leaflet-popup-content-wrapper {
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.3);
+}
+
+.leaflet-popup-tip {
+    background: #007acc;
+}
+
+/* Zoom Buttons */
+.leaflet-control-zoom-in,
+.leaflet-control-zoom-out {
+    background: #007acc;
+    color: #fff;
+    border-radius: 4px;
+    font-size: 16px;
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3);
+    border: none;
+}
+
+.leaflet-control-zoom-in:hover,
+.leaflet-control-zoom-out:hover {
+    background: #005f99;
+}
+
+/* Attribution Text */
+.leaflet-control-attribution {
+    font-size: 12px;
+    color: #f4f4f4; /* Light text for attribution */
+    background: rgba(0, 0, 0, 0.6); /* Darker background for better readability */
+    border-radius: 3px;
+    padding: 3px 8px;
+}
+
+/* Photo Gallery Section */
+#photo-gallery-container {
+    width: 100%;
+    padding: 20px;
+    margin-top: 20px;
+    flex-grow: 1;
+    box-sizing: border-box;
+    overflow-y: auto; /* Allows scrolling if content overflows */
+}
+
+/* Photo Gallery Styling */
+.photo-gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Responsive grid for photo gallery */
+    gap: 20px;
+    padding: 20px;
+    justify-items: center;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    box-sizing: border-box;
+}
+
+/* Individual Photo Item Styling */
+.photo-item {
+    position: relative;
+    width: 100%;
+    max-width: 300px;
+    overflow: hidden;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease;
+}
+
+/* Image Styling */
+.photo-item img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    transition: transform 0.3s ease;
+}
+
+/* Hover Effects */
+.photo-item:hover img {
+    transform: scale(1.1); /* Slight zoom effect on hover */
+}
+
+.photo-item:hover {
+    transform: translateY(-10px); /* Slight lift effect on hover */
+}
+
+/* Responsive Styling for Small Screens */
+@media (max-width: 600px) {
+    .photo-gallery {
+        grid-template-columns: 1fr; /* Stack images vertically on small screens */
+    }
+}
+
+/* Search Button Styling */
+.search-button {
+    background-color: #007acc;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.search-button:hover {
+    background-color: #005f99;
+    transform: scale(1.05);
+}
+
+/* Footer Styling */
+footer {
+    background-color: blueviolet;
+    color: #f4f4f4;
+    text-align: center;
+    padding: 10px;
+    font-size: 10px;
+    position: fixed;
+    bottom: 0;
+    right: 0; /* Position the footer in the bottom-right corner */
+    width: auto; /* Allow the width to adjust based on content */
+}
+/* Wrapper for text and photo gallery */
+.content-wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 20px;
+    padding: 20px;
+  }
+  
+  /* Text Section Styling */
+  .text-section {
+    flex: 1; /* Takes up remaining space */
+    padding: 20px;
+    max-width: 50%; /* Restrict text to half width */
+    box-sizing: border-box;
+  }
+  
+  /* Photo Gallery Container Styling */
+  .photo-gallery-container {
+    flex: 1; /* Takes up remaining space */
+    max-width: 50%; /* Restrict photo gallery to half width */
+  }
+  
+  /* Photo Gallery Styling */
+  .photo-gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); /* Responsive grid for photos */
+    gap: 10px;
+    padding: 10px;
+  }
+  
+  /* Individual Photo Item Styling */
+  .photo-item {
+    overflow: hidden;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease;
+  }
+  
+  /* Image Styling */
+  .photo-item img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    transition: transform 0.3s ease;
+  }
+  
+  /* Hover Effects */
+  .photo-item:hover img {
+    transform: scale(1.05); /* Slight zoom effect on hover */
+  }
+  
+  .photo-item:hover {
+    transform: translateY(-5px); /* Slight lift effect on hover */
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .content-wrapper {
+      flex-direction: column; /* Stack text and photos vertically on smaller screens */
+    }
+  
+    .text-section, .photo-gallery-container {
+      max-width: 100%; /* Full width on smaller screens */
+    }
+  }
+
+  /* Style for the button */
+button {
+    background-color: #4CAF50; /* Green background */
+    color: white; /* White text color */
+    border: none; /* Remove border */
+    padding: 15px 32px; /* Add padding for size */
+    text-align: center; /* Center the text */
+    text-decoration: none; /* Remove underline */
+    display: inline-block; /* Keep it inline */
+    font-size: 16px; /* Set font size */
+    cursor: pointer; /* Change cursor on hover */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add shadow */
+    transition: all 0.3s ease-in-out; /* Smooth transition */
+}
+
+/* Hover effect for the button */
+button:hover {
+    background-color: #45a049; /* Darker green on hover */
+    transform: translateY(-3px); /* Slightly lift button on hover */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); /* Enhanced shadow on hover */
+}
+
+/* Focus effect for the button */
+button:focus {
+    outline: none; /* Remove default focus outline */
+    border: 2px solid #45a049; /* Green border on focus */
+}
+
+/* Active state for button (when clicked) */
+button:active {
+    transform: translateY(2px); /* Simulate a button press */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Smaller shadow */
+}
+.end-section {
+    background-color: #333;
+    color: white;
+    padding: 20px;
+    border-radius: 8px; /* Rounded corners */
+    max-width: 600px; /* Limit the width */
+    width: 100%; /* Make sure it takes up full width within max-width */
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* Add shadow for depth */
+}
+
+/* Content inside the end-section */
+.end-content {
+    margin: 0;
+}
+
+/* Style for the links inside end-content */
+.end-content a {
+    color: #4CAF50; /* Green color for links */
+    text-decoration: none;
+}
+
+.end-content a:hover {
+    text-decoration: underline;
+}
+
+/* Styling for the end-details section */
+.end-details {
+    margin-top: 10px;
+    font-size: 14px;
+}
+
+/* Styling for individual paragraphs */
+.end-details p {
+    margin: 5px 0; /* Margin between paragraphs */
+}
+
+/* Style for the navigation menu */
+nav ul {
+    list-style: none; /* Remove default list styling */
+    margin: 0; /* Remove default margin */
+    padding: 0; /* Remove default padding */
+    display: flex; /* Display list items in a row */
+    justify-content: center; /* Center the list items horizontally */
+    align-items: center; /* Vertically align items */
+}
+
+/* Style for the list items inside the navigation */
+nav ul li {
+    margin: 0 20px; /* Space between menu items */
+}
+
+/* Style for the links inside the navigation */
+nav ul li a {
+    text-decoration: none; /* Remove underline */
+    color: white; /* White text color */
+    font-size: 18px; /* Font size for the links */
+    font-weight: 600; /* Slightly bolder text */
+    padding: 10px 15px; /* Padding around the links */
+    transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition for hover effect */
+}
+
+/* Hover effect for the links */
+nav ul li a:hover {
+    background-color: #4CAF50; /* Green background on hover */
+    color: white; /* Ensure text stays white */
+    border-radius: 5px; /* Rounded corners on hover */
+}

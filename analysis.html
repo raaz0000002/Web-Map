@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nepal Boundary Map with Schools</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@turf/turf@6.5.0/turf.min.js"></script> <!-- Turf.js -->
+    <script src="Boundry.js"></script> <!-- Nepal GeoJSON -->
+    <script src="studynepal.js"></script> <!-- Nepal Provinces GeoJSON -->
+    <script src="school.js"></script>
+    <script src="clipped roads.js"></script>
+    <link rel="stylesheet" href="analysis.css">
+    
+</head>
+<body>
+    <nav>
+        <ul>
+            <li> <a href="exam.html">Tourist Map</a></li>
+            <li> <a href="analysis.html"> Rural School Analysis</a></li>
+            <li><a href="about.html">About page</a></li>
+            <li><a href="us.html">Contact Us</a></li>
+            
+        </ul>
+
+    </nav>
+    <h1>Schooling in Rural Parts of Nepal</h1>
+    <h2> About this map</h2> 
+    <h3> Schools in rural parts of Nepal often face significant challenges due to geographic isolation, limited resources, and socio-economic factors. Many schools are located in remote hilly or mountainous areas, making access difficult for both students and teachers, especially during the monsoon season when roads become impassable. Facilities in these schools are often inadequate, with poorly constructed buildings, lack of furniture, and insufficient teaching materials. Electricity and internet connectivity are scarce, hindering modern learning opportunities. Despite these obstacles, local communities and organizations have made efforts to improve education through initiatives like teacher training, scholarships for underprivileged students, and partnerships with NGOs. However, disparities in educational quality and access between urban and rural areas remain a significant challenge in Nepal’s pursuit of equitable education for all.</h3>
+    <div id="map" style="width: 80%; height: 400px;"></div>
+
+    <!-- Boxes to display analysis results -->
+    <div style="display: flex; gap: 20px; margin-top: 10px;">
+        <div id="proximity-result" style="flex: 1; background-color: #f8f9fa; padding: 10px;">
+            <h3>Proximity Analysis Result</h3>
+            <div id="analysis-result"></div>
+        </div>
+        <div id="nearest-school-result" style="flex: 1; background-color: #f8f9fa; padding: 10px;">
+            <h3>Nearest School to Road Analysis Result</h3>
+            <div id="school-analysis-result"></div>
+        </div>
+    </div>
+
+    <!-- Buttons to trigger the analysis -->
+    <div style="margin-top: 20px;">
+        <button id="proximity-button" style="padding: 10px 20px; background-color: #28a745; color: white; border: none; cursor: pointer;">Activate Proximity Analysis</button>
+        <button id="nearest-school-button" style="padding: 10px 20px; background-color: #007bff; color: white; border: none; cursor: pointer;">Activate Nearest School Analysis</button>
+    </div>
+
+    <script>
+        // Initialize the map
+        const map = L.map('map').setView([28.0, 84.0], 7);
+
+        // Add base map layer
+        const baseMap = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '&copy; OpenStreetMap contributors'
+        }).addTo(map);
+
+        // Define layers
+        const nepalLayer = L.geoJSON(nepal, {
+            style: { color: "blue", weight: 2, fillOpacity: 0.2 },
+            onEachFeature: (feature, layer) => {
+                const name = feature.properties?.name || "Unknown Region";
+                layer.bindPopup(`<strong>Region:</strong> ${name}`);
+            }
+        });
+
+        const nepalProvinceLayer = L.geoJSON(nepal1, {
+            style: { color: "green", weight: 2, fillOpacity: 0.2 },
+            onEachFeature: (feature, layer) => {
+                const name = feature.properties?.DISTRICT || "Unknown Region";
+                layer.bindPopup(`<strong>District Name:</strong> ${name}`);
+            }
+        });
+
+        const clippedRoadLayer = L.geoJSON(clipped_road, {
+            style: { color: "red", weight: 2, opacity: 0.7 },
+            onEachFeature: (feature, layer) => {
+                const roadType = feature.properties?.highway || "Unknown Road Type";
+                const roadName = feature.properties?.name || "Unknown Road Name";
+                layer.bindPopup(`
+                    <strong>Road Type:</strong> ${roadType}<br>
+                    <strong>Road Name:</strong> ${roadName}
+                `);
+            }
+        }).addTo(map);
+
+        const schoolLayer = L.geoJSON(school, {
+            pointToLayer: (feature, latlng) => L.marker(latlng),
+            onEachFeature: (feature, layer) => {
+                const name = feature.properties?.name || "Unknown School";
+                layer.bindPopup(`<strong>School Name:</strong> ${name}`);
+            }
+        }).addTo(map);
+
+        // Add layers control
+        const baseLayers = { "Base Map": baseMap };
+        const overlayLayers = {
+            "Nepal Boundary": nepalLayer,
+            "Nepal District": nepalProvinceLayer,
+            "Schools": schoolLayer,
+            "Roads": clippedRoadLayer
+        };
+        L.control.layers(baseLayers, overlayLayers).addTo(map);
+
+        // Variables for analysis activation
+        let proximityAnalysisActivated = false;
+        let nearestSchoolAnalysisActivated = false;
+
+        // Proximity Analysis
+        function analyzeProximity(schoolLatLng) {
+            const resultContainer = document.getElementById("analysis-result");
+            resultContainer.innerHTML = ''; // Clear previous results
+
+            clippedRoadLayer.eachLayer((roadLayer) => {
+                const roadLatLngs = roadLayer.getLatLngs();
+                let nearestDistance = Infinity;
+
+                roadLatLngs.flat().forEach((roadLatLng) => {
+                    const roadPoint = turf.point([roadLatLng.lng, roadLatLng.lat]);
+                    const schoolPoint = turf.point([schoolLatLng.lng, schoolLatLng.lat]);
+
+                    const distance = turf.distance(schoolPoint, roadPoint);
+                    nearestDistance = Math.min(nearestDistance, distance);
+                });
+
+                if (nearestDistance <= 0.5) {
+                    const roadName = roadLayer.feature.properties.name || "Unnamed Road";
+                    resultContainer.innerHTML += `<p>School is near <strong>${roadName}</strong> (${nearestDistance.toFixed(2)} km)</p>`;
+                }
+            });
+
+            if (!resultContainer.innerHTML) {
+                resultContainer.innerHTML = "<p>No nearby roads found within 500 meters.</p>";
+            }
+        }
+
+        // Nearest School Analysis
+        function findNearestSchool(roadLatLng) {
+            const resultContainer = document.getElementById("school-analysis-result");
+            resultContainer.innerHTML = ''; // Clear previous results
+
+            let nearestSchool = null;
+            let shortestDistance = Infinity;
+
+            schoolLayer.eachLayer((schoolLayer) => {
+                const schoolLatLng = schoolLayer.getLatLng();
+                const roadPoint = turf.point([roadLatLng.lng, roadLatLng.lat]);
+                const schoolPoint = turf.point([schoolLatLng.lng, schoolLatLng.lat]);
+
+                const distance = turf.distance(roadPoint, schoolPoint);
+                if (distance < shortestDistance) {
+                    shortestDistance = distance;
+                    nearestSchool = schoolLayer;
+                }
+            });
+
+            if (nearestSchool) {
+                const schoolName = nearestSchool.feature.properties.name || "Unnamed School";
+                resultContainer.innerHTML = `<p>Nearest school is <strong>${schoolName}</strong> (${shortestDistance.toFixed(2)} km)</p>`;
+            } else {
+                resultContainer.innerHTML = "<p>No schools found.</p>";
+            }
+        }
+
+        // Event listeners for buttons
+        document.getElementById("proximity-button").addEventListener("click", () => {
+            proximityAnalysisActivated = !proximityAnalysisActivated;
+            alert(proximityAnalysisActivated
+                ? "Proximity Analysis Activated. Click on a school to find nearby roads."
+                : "Proximity Analysis Deactivated.");
+        });
+
+        document.getElementById("nearest-school-button").addEventListener("click", () => {
+            nearestSchoolAnalysisActivated = !nearestSchoolAnalysisActivated;
+            alert(nearestSchoolAnalysisActivated
+                ? "Nearest School Analysis Activated. Click on a road to find the nearest school."
+                : "Nearest School Analysis Deactivated.");
+        });
+
+        // Event listener for school markers
+        schoolLayer.eachLayer((markerLayer) => {
+            markerLayer.on('click', function () {
+                if (proximityAnalysisActivated) {
+                    analyzeProximity(markerLayer.getLatLng());
+                }
+            });
+        });
+
+        // Event listener for road features
+        clippedRoadLayer.eachLayer((roadLayer) => {
+            roadLayer.on('click', function () {
+                if (nearestSchoolAnalysisActivated) {
+                    findNearestSchool(roadLayer.getLatLngs()[0][0]); // First point of the road
+                }
+            });
+        });
+    </script>
+
+<footer>
+    <p>&copy; 2024 Rajkumar,Sagar,Dipendra. All Rights Reserved.</p>
+</footer>
+</body>
+</html>

@@ -1,0 +1,153 @@
+/* General page styles */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    color: #333; /* Default text color */
+    background-image: url('Images/web.jpg'); /* Add your background image here */
+    background-size: cover; /* Cover the full page */
+    background-position: center;
+    background-attachment: fixed; /* Fix the background while scrolling */
+    padding-top: 80px; /* Prevent content from being hidden under the fixed header */
+}
+
+/* Header styling */
+header {
+    background-color: rgba(51, 51, 51, 0.8); /* Semi-transparent background for header */
+    color: white;
+    padding: 20px;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+}
+
+header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+header h1 {
+    font-size: 36px;
+    margin: 0;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    margin: 0;
+    padding: 0;
+}
+
+nav ul li {
+    margin-left: 20px;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: white;
+    font-size: 18px;
+    font-weight: 600;
+    padding: 10px 15px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+nav ul li a:hover, nav ul li a.active {
+    background-color: #4CAF50; /* Green background on hover and active link */
+    color: white;
+    border-radius: 5px;
+}
+
+/* Main content styling */
+main {
+    padding: 50px 20px;
+    text-align: center;
+}
+
+/* About authors section */
+.about-authors {
+    margin-top: 80px; /* Adjust space for header */
+}
+
+.about-authors h2 {
+    font-size: 36px;
+    margin-bottom: 40px;
+    color: #fff; /* White text for contrast */
+}
+
+.authors {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+/* Author card styling */
+.author-card {
+    background-color: rgba(255, 255, 255, 0.4); /* Transparent white background */
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+    width: 300px; /* Increase width of each card */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(5px); /* Blur the background behind the author card */
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease;
+}
+
+.author-card:hover {
+    transform: translateY(-10px); /* Slight raise effect on hover */
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+
+.author-card img {
+    width: 100%; /* Use full width of the card */
+    height: 250px; /* Increase height of the image */
+    object-fit: cover; /* Maintain image aspect ratio */
+    border-radius: 10px; /* Rounded corners for the image */
+    margin-bottom: 15px;
+}
+
+.author-card h3 {
+    font-size: 24px;
+    margin: 10px 0;
+    color: #fff; /* White text color */
+}
+
+.author-card .role {
+    font-size: 16px;
+    color: #ddd; /* Lighter text color */
+    margin-bottom: 10px;
+}
+
+.author-card p {
+    font-size: 14px;
+    line-height: 1.5;
+    color: #ddd; /* Lighter text color */
+}
+
+/* Footer styling */
+footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 10px 0;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .authors {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .author-card {
+        width: 80%;
+        margin-bottom: 30px;
+    }
+}
